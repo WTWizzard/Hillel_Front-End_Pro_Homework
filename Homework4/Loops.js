@@ -4,7 +4,7 @@
 
 //while
 
-const numbForIteration = 50;
+const numbForIteration = 20;
 
 let index = 1;
 
@@ -38,8 +38,6 @@ for(let i = 1; i < numbForIteration; i++){
 
 //while
 
-const numbForIteration = 50;
-
 let index3 = 1;
 
 while(index3 < numbForIteration){
@@ -66,3 +64,13 @@ for(let i = 1; i < numbForIteration; i++){
         console.log(i);
     }
 }
+
+//Task: Guess game with rand numbers
+
+let numbComp = Math.floor(Math.random() * 10);
+let numbUser;
+
+do{
+    numbUser = prompt('enter num');
+
+}while(numbUser !== null && Number(numbUser) !== numbComp)
