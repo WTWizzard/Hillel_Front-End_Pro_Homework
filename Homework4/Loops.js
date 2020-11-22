@@ -74,3 +74,14 @@ do{
     numbUser = prompt('enter num');
 
 }while(numbUser !== null && Number(numbUser) !== numbComp)
+
+//Task: Multiplicity
+
+let multiplicityNum = +prompt('Введите число которому должно быть кратно: ');
+let multiplicityAmount = +prompt('Введите количество кратных чисел: ');
+
+for(let i = 1; i <= multiplicityAmount * multiplicityNum; i++){
+    if(!(i % multiplicityNum)){
+        console.log(i);
+    }
+}
