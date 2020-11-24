@@ -85,3 +85,21 @@ for(let i = 1; i <= multiplicityAmount * multiplicityNum; i++){
         console.log(i);
     }
 }
+
+let idx = 1;
+
+while(idx <= multiplicityAmount * multiplicityNum){
+    idx++;
+    if(!(idx % multiplicityNum)){
+        console.log(idx);
+    }
+}
+
+let idx2 = 1;
+
+do {
+    idx2++;
+    if(!(idx2 % multiplicityNum)){
+        console.log(idx2);
+    }
+} while (idx2 <= multiplicityAmount * multiplicityNum);
