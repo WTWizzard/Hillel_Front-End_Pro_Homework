@@ -12,3 +12,21 @@ const pow = (userNum, powNum) =>{
 }
 
 pow(userNumber, userPow);
+
+//Task Guess game Function version
+let numbComp = Math.floor(Math.random() * 10 + 1);
+let userNum;
+const askNum = () =>{
+    userNum = prompt('Enter number(1 to 10): ');
+}
+const checkNum =() =>{
+    return userNum !== null && Number(userNum) !== numbComp;
+}
+console.log(numbComp)
+const loopFunc = () =>{
+    while(checkNum()){
+        askNum()
+    }
+}
+
+loopFunc();
