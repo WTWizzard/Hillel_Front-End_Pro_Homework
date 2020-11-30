@@ -3,6 +3,7 @@
 const testObject = {
     isHuman: true,
     firstName: 'Victor',
+    secondName: 'Von', 
     lastName: 'Doom',
     age: 34,
     status: 'villian',
@@ -21,3 +22,16 @@ const allStrLength = obj =>{
 }
 
 console.log(allStrLength(testObject))
+
+//Task Copy all properties of Object without Values
+
+const allPropertiesNoValues = obj =>{
+    let newObj = {}
+
+    for (const key in obj) {
+        newObj[key] =  obj.key
+    }
+    console.log(newObj)
+}
+allPropertiesNoValues(testObject)
+
