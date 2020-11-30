@@ -35,3 +35,22 @@ const allPropertiesNoValues = obj =>{
 }
 allPropertiesNoValues(testObject)
 
+//Task All propeerties to Number
+
+const allPropertiesToNum = obj =>{
+    let newObj = {...obj}
+    for (const key in newObj) {
+        if (typeof newObj[key] === 'string') {
+            newObj[key] = newObj[key].length            
+        }else if(typeof newObj[key] === 'boolean'){
+            newObj[key] = Number(newObj[key])
+        }else {
+            continue
+        }
+    }
+    return newObj
+}
+
+console.log(allPropertiesToNum(testObject))
+
+
