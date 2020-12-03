@@ -14,19 +14,22 @@ const pow = (userNum, powNum) =>{
 pow(userNumber, userPow);
 
 //Task Guess game Function version
-let numbComp = Math.floor(Math.random() * 10 + 1);
-let userNum;
-const askNum = () =>{
-    userNum = prompt('Enter number(1 to 10): ');
-}
-const checkNum =() =>{
-    return userNum !== null && Number(userNum) !== numbComp;
-}
-console.log(numbComp)
+const numbComp = (max) => Math.floor(Math.random() * max + 1);
+
+const askNum = () => prompt('Enter number(1 to 10): ');
+
 const loopFunc = () =>{
-    while(checkNum()){
-        askNum()
+    const rand = numbComp(10)
+    let ask;
+    while(ask !== null && Number(ask) !== rand){
+        ask = askNum()
     }
+    return Number(ask) === rand
 }
 
-loopFunc();
+
+if(loopFunc()){
+    console.log('You win!')
+}else{
+    console.log('Maybe next time')
+}
