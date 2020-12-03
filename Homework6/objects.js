@@ -16,6 +16,8 @@ const allStrLength = obj =>{
     for (const key in obj) {
         if (typeof obj[key] === 'string') {
             res += obj[key].length
+        }else{
+            continue
         }
     }
     return res;
@@ -26,12 +28,12 @@ console.log(allStrLength(testObject))
 //Task Copy all properties of Object without Values
 
 const allPropertiesNoValues = obj =>{
-    let newObj = {}
+    let newObj = {...obj}
 
     for (const key in obj) {
-        newObj[key] =  obj.key
+        newObj[key] =  null;
     }
-    console.log(newObj)
+    return newObj;
 }
 allPropertiesNoValues(testObject)
 
