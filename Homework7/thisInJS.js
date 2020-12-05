@@ -38,7 +38,13 @@ const kitchen = {
         }
     },
     cook(recipe) {
-        
+        for (let key in recipe) {
+            const neededIngredient = recipe[key]
+            if (!this.kettle.ingridients[key] ||this.kettle.ingridients[key] < neededIngredient ) {
+                return false;
+            }
+        }
+        return true;
     },
 };
 
@@ -47,4 +53,10 @@ kitchen.addIngridientToKettle('stone', 100);
 kitchen.addIngridientToKettle('nail', 100);
 kitchen.addIngridientToKettle('poo', 70);
 
-kitchen.cook(magicBook.recipes.golem)
+const couldBeCooked = kitchen.cook(magicBook.recipes.golem)
+
+if(couldBeCooked){
+    console.log('Could be cooked!')
+}else {
+    console.log('Don`t have enough ingredients.')
+}
