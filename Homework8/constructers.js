@@ -67,9 +67,20 @@ const grades = {
       }
     }
 
-    // this.fine = (finePath) =>{
-    //   if()
-    // }
+    this.fine = (finePath) =>{
+      for (const key in fines) {
+        if (finePath && fines[key] !== finePath) {
+          continue;
+        }else if(!finePath || finePath === undefined || finePath === null){
+          console.log('We dont have this type of fine.');
+          break;
+        }else{
+          this.salary -= finesTax[finePath];
+          console.log(`You were fined for ${finePath}`);
+        }
+      }
+      
+    }
     
     this.finishTask = () => {
       if (this.tasks > 0) {
@@ -100,5 +111,5 @@ const grades = {
   
   user.upgrade();
 
-  user.fine(fines.late);
+  user.fine(fines.idleTime);
   console.log(user)
