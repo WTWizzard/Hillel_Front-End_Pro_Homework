@@ -40,3 +40,29 @@ const every_2 = function (cb, arr){
     return true;
 }
 
+const runner = {
+    $$runnerId: null,
+    $$tasks: [],
+    setSpeed: function (speed) {
+        this.stop();
+        this.start(speed);
+    },
+    add: function (task) {
+        this.$$tasks.push(task);
+    },
+    start: function (speed) {
+        var _this = this;
+        this.$$runnerId = setTimeout(function callback() {
+            _this.$$tasks.forEach(function (i) {
+                i();
+            })
+            _this.$$runnerId = setTimeout(callback, speed);
+        }, speed);
+    },
+    stop: function () {
+        clearTimeout(this.$$runnerId);
+    }
+}
+runner.add(() => console.log('Hello'));
+runner.add(() =>  console.log('World'));
+runner.setSpeed(2000)
