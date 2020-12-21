@@ -12,7 +12,9 @@ const forEach_2 = function (cb, arr){
     }
 }
 const some_2 = function (cb, arr){
-
+    if(arr.length === 0){
+        return false;
+    }
     for (let key = 0; key < arr.length; key++) {
         let keyValue = arr[key];
         if(key in arr && cb.apply(arr, [keyValue, key, arr])){
@@ -21,3 +23,20 @@ const some_2 = function (cb, arr){
     }
     return false;
 }
+
+const every_2 = function (cb, arr){
+    if(arr.length === 0){
+        return true;
+    }
+    for(let key = 0; key < arr.length; key++){
+        let keyValue = arr[key];
+        if(key in arr){
+            let res = cb.apply(arr, [keyValue, key, arr])
+            if(!res){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
