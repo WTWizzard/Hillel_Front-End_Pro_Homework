@@ -18,7 +18,7 @@ const weapon = {
       },
 }
 
-const allProperties = [...weapon];
+const allProperties = [...weapon].flat();
 
 console.log(allProperties)
 
