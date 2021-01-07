@@ -15,4 +15,26 @@ const curriedFunction = curry(sum, 1,2); // запоминает для вызо
 console.log(curriedFunction(3,4)) // выводит 10 т.е. выполняется функционал sum(1,2,3,4).
 
 
+//task II
 
+function counter(){
+    let n = 0;
+    return {
+        inc(){
+            return n++
+        },
+        dec(){
+            return n--
+        },
+        value(){
+            return n
+        }
+    }
+}
+
+const iterator = counter();
+iterator.inc() // увеличивает значение на 1
+iterator.inc() // еще на 1
+iterator.dec() // уменьшает на 1
+
+console.log(iterator.value()) // выводит 1
