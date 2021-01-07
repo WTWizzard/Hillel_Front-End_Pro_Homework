@@ -33,3 +33,14 @@ const task2 = (n, pow) => {
 }
 
 task2(16,2)
+
+//Task III Дано натуральное число N. Вычислите сумму его цифр.
+
+const task3 = (n) =>{
+    if(n !== 0){
+        return (n % 10) + task3(Math.floor(n/10))
+    }
+    return 0;   
+}
+
+console.log(task3(1234))//10
