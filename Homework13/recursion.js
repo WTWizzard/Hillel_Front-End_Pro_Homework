@@ -13,3 +13,23 @@ const task1 = (n) =>{
 
 task1(10)
 
+//Task II Дано натуральное число N. Выведите слово YES, если число N является точной степенью двойки, или слово NO в противном случае.
+
+const task2_sub = (number, pow) => {
+    if(number !== 1){
+        number /= pow;
+        return number < 1 ? false : task2_sub(number, pow)
+    }else{
+        return true
+    }
+}
+
+const task2 = (n, pow) => {
+    if(task2_sub(n, pow)){
+        console.log('YES')
+    }else{
+        console.log('NO')
+    }
+}
+
+task2(16,2)
