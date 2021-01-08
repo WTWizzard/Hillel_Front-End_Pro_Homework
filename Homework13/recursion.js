@@ -44,3 +44,41 @@ const task3 = (n) =>{
 }
 
 console.log(task3(1234))//10
+
+//Task IV Дан объект с N вложенностями. Скопируйте объект вглубину (без ссылок)
+
+const obj = {
+    a: 2,
+    b: {
+        c: 4,
+        d: {
+            e: 5,
+            f: {
+                g: 6,
+            },
+        },
+    },
+};
+
+const task4 = (inObj) => {
+    let outObj, value;
+
+    if (typeof inObj !== "object" || inObj === null) return inObj;
+
+    outObj =  Array.isArray(inObj) ? [] : {};
+
+    for (let key in inObj) {
+        value = inObj[key]
+    
+        outObj[key] = task4(value)
+    }
+    
+    return outObj
+};
+
+
+const obj2 = task4(obj);
+
+obj2.b.c =12;
+
+console.log(obj, obj2)
