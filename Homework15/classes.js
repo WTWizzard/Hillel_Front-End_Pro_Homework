@@ -7,21 +7,18 @@ class MilitaryResource {
     this.distance = this.maxDistance = distance;
   }
   isReadyToFight() {
-    return !(this.health <= 0);
+    return this.health > 0;
   }
   isReadyToMove() {
-    return !(this.distance <= 0);
+    return this.distance > 0;
   }
   restore() {
-    if (!this.isReadyToFight()) {
-      this.health = this.maxHealth;
-    }
-    if (!this.isReadyToMove()) {
-      this.distance = this.maxDistance;
-    }
+    this.health = this.maxHealth;
+
+    this.distance = this.maxDistance;
   }
   clone() {
-    return Object.assign(Object.create(this.__proto__), this);
+    return Object.assign(Object.create(this.__proto__), JSON.parse(JSON.stringify(this)));
   }
 }
 
@@ -56,11 +53,7 @@ class Squad {
     this.squad.forEach((soldier) => soldier.restore());
   }
   getReadyToMoveResources() {
-    const ableToMoveResources = [];
-
-    this.squad.forEach((soldier) => {
-      if (soldier.isReadyToMove()) ableToMoveResources.push(soldier);
-    });
+    const ableToMoveResources = this.squad.filter((soldier) => soldier.isReadyToMove());
 
     return ableToMoveResources;
   }
@@ -68,6 +61,6 @@ class Squad {
     this.squad = [...defaultResources];
   }
   clone() {
-    return [...this.squad];
+    return this.squad.map(soldier=> soldier.clone());
   }
 }
