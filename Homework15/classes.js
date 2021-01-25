@@ -58,7 +58,7 @@ class Squad {
     return ableToMoveResources;
   }
   combineResources(defaultResources) {
-    this.squad = [...defaultResources];
+    this.squad = [...this.squad,...defaultResources];
   }
   clone() {
     return this.squad.map(soldier=> soldier.clone());

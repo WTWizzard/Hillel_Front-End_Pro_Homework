@@ -64,7 +64,7 @@ Squad.prototype.getReadyToMoveResources = function () {
 };
 
 Squad.prototype.combineResources = function (defaultResources) {
-  this.squad = [...defaultResources];
+  this.squad = [...this.squad,...defaultResources];
 };
 
 Squad.prototype.clone = function () {
