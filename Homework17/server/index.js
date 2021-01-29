@@ -1,4 +1,4 @@
-const {readJSON, writeJSON, deleteJSON} = require('./utils/utils')
+const {readJSON, writeJSON, deleteJSON, editJSON} = require('./utils/utils')
 const {join} = require('path');
 const http = require('http')
 
@@ -7,7 +7,7 @@ const levelAddr = join(__dirname, './levels.json');
 
 
 //delete User by id
-
+/*
 readJSON(userAddr, (_, data)=>{
     const users = [...data]
     
@@ -18,7 +18,19 @@ readJSON(userAddr, (_, data)=>{
     })
     console.log(updateUsers);
 });
+*/
 
+// edit User
+readJSON(userAddr, (_, data)=>{
+    const users = [...data]
+    
+    const updateUsers = editJSON(users, 2, 'name', 'Joker')
+    
+    writeJSON(userAddr, updateUsers, ()=>{
+        console.log('Data saved')
+    })
+    console.log(updateUsers);
+});
 
 
 
