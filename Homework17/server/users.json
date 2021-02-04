@@ -1,1 +1,1 @@
-[{"id":1,"name":"Gregory","level":1,"addres":{"city":"Odessa","street":"Bunina"}},{"id":2,"name":"Joker","level":1},{"id":3,"name":"User 3","level":1},{"id":4,"name":"User 4","level":3},{"id":5,"name":"User 5","level":3},{"id":6,"name":"User 6","level":3}]
+[{"id":1,"name":"Gregory","level":1,"addres":{"city":"Odessa","street":"Bunina"}},{"id":3,"name":"User 3","level":1},{"id":4,"name":"User 4","level":3},{"id":9,"name":"Frank","level":2},{"id":5,"name":"Dova","level":3,"addres":{"city":"Winterhold","street":"Magic Academia 1"}}]

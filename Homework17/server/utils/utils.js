@@ -13,13 +13,6 @@ const deleteJSON = (data, id) => {
 
   return data;
 };
-const editJSON = (data, id, fieldToEdit, value) =>{
-  let userToEdit = data.find((user) => user.id === id);
-
-  userToEdit[fieldToEdit] = value;
-
-  return data
-}
 const createUserJSON = (data) =>{
   const lastUser = data[data.length -1];
   const nextId = (lastUser?.id || 0) +1;
@@ -37,6 +30,5 @@ module.exports = {
   readJSON,
   writeJSON,
   deleteJSON,
-  editJSON,
   createUserJSON
 };
