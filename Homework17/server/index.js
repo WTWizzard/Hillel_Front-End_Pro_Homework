@@ -1,54 +1,58 @@
-const {readJSON, writeJSON, deleteJSON, editJSON} = require('./utils/utils')
-const {join} = require('path');
-const http = require('http')
+const {readJSON, writeJSON, deleteJSON, editJSON, createUserJSON} = require('./utils/utils');
+const path = require('path');
+const http = require('http');
 
-const userAddr = join(__dirname, './users.json');
-const levelAddr = join(__dirname, './levels.json');
-
-
-//delete User by id
-/*
-readJSON(userAddr, (_, data)=>{
-    const users = [...data]
-    
-    const updateUsers = deleteJSON(users, 3)
-    
-    writeJSON(userAddr, updateUsers, ()=>{
-        console.log('Data saved')
-    })
-    console.log(updateUsers);
-});
-*/
-
-// edit User
-readJSON(userAddr, (_, data)=>{
-    const users = [...data]
-    
-    const updateUsers = editJSON(users, 2, 'name', 'Joker')
-    
-    writeJSON(userAddr, updateUsers, ()=>{
-        console.log('Data saved')
-    })
-    console.log(updateUsers);
-});
+const userAddr = path.join(__dirname, './users.json');
+const levelAddr = path.join(__dirname, './levels.json');
 
 
+http.createServer((req, res) =>{
+    const reqMethod = req.method;
+    const reqUrl = req.url;
+    if(reqMethod === 'GET'){
+        readJSON(userAddr, (_, data)=>{
+            res.end(JSON.stringify(data))
+        })
+    }else if(reqMethod === 'DELETE'){
+        const id = reqUrl
+        readJSON(userAddr, (_, data)=>{
+            const users = [...data]
+            
+            const updateUsers = deleteJSON(users, id)
+            
+            writeJSON(userAddr, updateUsers, ()=>{
+                console.log('Data saved')
+            })
+            console.log(updateUsers);
+            res.end(JSON.stringify(updateUsers))
+        });
+    }else if(reqMethod === 'PATCH'){
+        readJSON(userAddr, (_, data)=>{
+            const users = [...data]
+            
+            const updateUsers = editJSON(users, 4, 'name', 'Poker)')
+            
+            writeJSON(userAddr, updateUsers, ()=>{
+                console.log('Data saved')
+            })
+            console.log(updateUsers);
+            res.end(JSON.stringify(updateUsers))
+        });
+    }else if(reqUrl === '/add'){
+        readJSON(userAddr, (_, data)=>{
+            const users = [...data]
+            
+            const updateUsers = createUserJSON(users)
+            
+            writeJSON(userAddr, updateUsers, ()=>{
+                console.log('Data saved')
+            })
+            console.log(updateUsers);
+            res.end(JSON.stringify(updateUsers))
+        });
+    }else{ 
+        res.end('Hello');
+    }
 
-//create new User
-/*
-readJSON(userAddr, (_, data)=>{
-    const users = [...data]
-    const lastUser = users[users.length -1];
-    const nextId = (lastUser?.id || 0) +1;
-    const newUser = {
-        id: nextId,
-        name: `User ${nextId}`,
-        level: Math.ceil(Math.random() * 3)
-    };
-    const updateUsers = [...users, newUser];
-    writeJSON(userAddr, updateUsers, ()=>{
-        console.log('Data saved')
-    })
-    console.log(updateUsers);
-})
-*/
+}).listen(3000);
+

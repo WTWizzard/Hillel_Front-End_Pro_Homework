@@ -20,9 +20,23 @@ const editJSON = (data, id, fieldToEdit, value) =>{
 
   return data
 }
+const createUserJSON = (data) =>{
+  const lastUser = data[data.length -1];
+  const nextId = (lastUser?.id || 0) +1;
+  const newUser = {
+      id: nextId,
+      name: `User ${nextId}`,
+      level: Math.ceil(Math.random() * 3)
+  };
+  return [...data, newUser]
+}
+
+
+
 module.exports = {
   readJSON,
   writeJSON,
   deleteJSON,
   editJSON,
+  createUserJSON
 };
