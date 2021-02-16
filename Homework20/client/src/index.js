@@ -1,4 +1,4 @@
-import { div } from './utils'
+import { card } from './utils'
 
 const url = "http://localhost:3000";
 
@@ -12,6 +12,6 @@ const data = getUsers(url).then(getJsonFromResponse);
 
 data.then((users) => {
     users.map((user) =>{
-        app.appendChild(div(user))
+        app.append(card(user))
     })
 });

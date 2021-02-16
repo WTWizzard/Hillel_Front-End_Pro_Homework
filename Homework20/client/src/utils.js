@@ -1,16 +1,35 @@
-export const div = (el) =>{
-    const wrapper = document.createElement('div');
-    wrapper.className = 'card';
-    
-    const cardName = document.createElement('div');
-    cardName.className = 'card__name';
-    cardName.innerText = el.name
+const element = (
+  tagName,
+  { classNames = [], children = [], ...additionalProps }
+) => {
+  const tag = document.createElement(tagName);
 
-    const cardLevel = document.createElement('div');
-    cardLevel.className = 'card__level';
-    cardLevel.innerText = el.level
+  tag.classList.add(...classNames);
 
-    wrapper.append(cardName)
-    wrapper.append(cardLevel)
-    return wrapper;
-} 
+  children.forEach((child) => {
+    if (child !== null && typeof child !== "object") {
+      tag.append(document.createTextNode(child));
+    } else if (child !== null) {
+      tag.append(child);
+    }
+  });
+
+  return tag;
+};
+
+export const card = (unit) => {
+    const cardWrapper = element('div', {
+        classNames: ['card'],
+        children: [
+            element('div', {
+                classNames: ['card-name'],
+                children: [unit.name]
+            }),
+            element('div', {
+                classNames: ['card-name'],
+                children: [unit.level]
+            })
+        ]
+    })
+    return cardWrapper
+};
