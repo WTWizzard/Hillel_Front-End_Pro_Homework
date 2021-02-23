@@ -1,0 +1,33 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.cross-wrapp{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 400px;
+    height: 400px;
+}
+
+.cross{
+    background-color: red;
+    width: 400px;
+    height: 1px;
+    position: relative;
+    &:before{
+        content: '';
+        position: absolute;
+        display: block;
+        height: 400px;
+        width: 1px;
+        background-color: red;
+        top: -200px;
+        left: 200px;
+    }
+}
