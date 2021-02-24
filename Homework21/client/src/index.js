@@ -12,7 +12,7 @@ const data = getUsers(url).then(getJsonFromResponse);
 
 data.then((gottenData) => {
   let currentSlide = 0;
-  const characters = gottenData.results;
+  let characters = gottenData.results;
   let next_url = gottenData.info.next;
   let prev_url = gottenData.info.prev;
   let cards, dots;
@@ -36,43 +36,40 @@ data.then((gottenData) => {
     cards.forEach((card) => card.classList.remove("active"));
     dots.forEach((dot) => dot.classList.remove("active"));
 
-    Promise.resolve(currentSlide)
-      .then((slide) => {
-        if (slide === characters.length) {
-          return getNewList(next_url, type.new_data_next);
-        } else if (slide === 0) {
-          return getNewList(prev_url, type.new_data_prev);
-        } else {
-          return {
-            type: type.same_data,
-          };
-        }
-      })
-      .then((result) => {
-        switch (result.type) {
-          case type.new_data_next:
-            characters = [...result.data.result];
-            cards[index].classList.add("active");
-            dots[index].classList.add("active");
-            currentSlide = index;
-            break;
-          case type.new_data_prev:
-            characters = [...result.data.result];
-            cards[index].classList.add("active");
-            dots[index].classList.add("active");
-            currentSlide = index;
-            break;
-          default:
-            characters = [...result.data.result];
-            cards[index].classList.add("active");
-            dots[index].classList.add("active");
-            currentSlide = index;
-            break;
-        }
-      });
-    cards[index].classList.add("active");
-    dots[index].classList.add("active");
-    currentSlide = index;
+    if (index > characters.length - 1 || index < 0) {
+      Promise.resolve(index)
+        .then((slide) => {
+          if (slide === characters.length - 1) {
+            return getNewList(next_url, type.new_data_next);
+          } else if (slide === 0) {
+            return getNewList(prev_url, type.new_data_prev);
+          } else {
+            return {
+              type: type.same_data,
+            };
+          }
+        })
+        .then((result) => {
+          switch (result.type) {
+            case type.new_data_next:
+              characters = [...characters, ...result.data.results];
+              cards[index].classList.add("active");
+              dots[index].classList.add("active");
+              currentSlide = index;
+              break;
+            case type.new_data_prev:
+              characters = [...result.data.results, ...characters];
+              cards[index].classList.add("active");
+              dots[index].classList.add("active");
+              currentSlide = index;
+              break;
+          }
+        });
+    } else {
+      cards[index].classList.add("active");
+      dots[index].classList.add("active");
+      currentSlide = index;
+    }
   };
 
   const wrapper = div({
@@ -91,31 +88,13 @@ data.then((gottenData) => {
           click: () =>
             setActualSlide(
               currentSlide === characters.length - 1
-                ? currentSlide
+                ? currentSlide + 1
                 : currentSlide + 1
             ),
         },
         children: ["❯"],
       }),
-      ...(cards = characters.map((user, i) =>
-        div({
-          classNames: ["mySlides", "fade", !i ? "active" : "hide"],
-          children: [
-            div({
-              classNames: ["numbertext"],
-              children: [`${i + 1}/${characters.length}`],
-            }),
-            img({
-              classNames: ["slider-image"],
-              src: user.image,
-            }),
-            div({
-              classNames: ["text"],
-              children: [user.name],
-            }),
-          ],
-        })
-      )),
+      ...(cards = characters.map((user, i) => card(user, i, characters))),
     ],
   });
 

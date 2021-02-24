@@ -25,7 +25,7 @@ export const appendChildren = (el, children = []) => {
 const addAttributeSrc = (el, src = "") => {
   const newElement = el.cloneNode();
   newElement.setAttribute("src", src);
-    return newElement;
+  return newElement;
 };
 
 export const element = (
@@ -54,4 +54,21 @@ export const a = (props) => element("a", props);
 export const img = (props) => element("img", props);
 export const span = (props) => element("span", props);
 
-
+export const card = (user, i, data) =>
+  div({
+    classNames: ["mySlides", "fade", !i ? "active" : "hide"],
+    children: [
+      div({
+        classNames: ["numbertext"],
+        children: [`${i + 1}/${data.length}`],
+      }),
+      img({
+        classNames: ["slider-image"],
+        src: user.image,
+      }),
+      div({
+        classNames: ["text"],
+        children: [user.name],
+      }),
+    ],
+  });
