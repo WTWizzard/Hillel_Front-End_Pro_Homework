@@ -1,15 +1,16 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ForkTSCheckerWebpack = require('fork-ts-checker-webpack-plugin')
+const ForkTSCheckerWebpack = require("fork-ts-checker-webpack-plugin");
 const { resolve } = require("path");
 const webpack = require("webpack");
 
-module.exports = ({ production }) => {
+module.exports = () => {
   return {
-    entry: resolve(__dirname, "./src/index.ts"),
+    entry:[ resolve(__dirname, "./src/index.ts"), resolve(__dirname, './src/main.scss')],
     resolve: {
-      extensions: ['.js', '.ts']
+      extensions: [".js", ".ts"],
     },
+    mode: 'development',
     module: {
       rules: [
         {
@@ -19,14 +20,7 @@ module.exports = ({ production }) => {
             loader: "babel-loader",
             options: {
               presets: [
-                [
-                  {
-                    targets: {
-                      node: 10,
-                    },
-                  },
-                ],
-                "@babel/preset-typescript"
+                "@babel/preset-typescript",
               ],
               plugins: ["@babel/plugin-proposal-class-properties"],
             },
@@ -34,11 +28,7 @@ module.exports = ({ production }) => {
         },
         {
           test: /\.s[ca]ss$/,
-          use: [
-            production ? MiniCssExtractPlugin.loader : "style-loader",
-            "css-loader",
-            "sass-loader",
-          ],
+          use: ["style-loader", "css-loader", "sass-loader"],
         },
       ],
     },

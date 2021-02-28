@@ -1,4 +1,5 @@
 import { chain } from "lodash";
+import {Listeners, Character} from './interfaces';
 
 export const addClasses = (el: Node, classes = []) => {
   const newElement = el.cloneNode();
@@ -39,12 +40,12 @@ export const element = (
   }
 ) =>
   chain(document.createElement(tagName))
-    .thru((el: HTMLElement) => addAttributeSrc(el, src))
-    .thru((el: HTMLElement) => addClasses(el, classNames))
-    .thru((el: HTMLElement) => appendChildren(el, children))
-    .tap((el: Element) => {
-      Object.entries(listeners).forEach(([listner, cb]) => {
-        el.addEventListener(listner, cb);
+    .thru((el: Node) => addAttributeSrc(el, src))
+    .thru((el: Node) => addClasses(el, classNames))
+    .thru((el: Node) => appendChildren(el, children))
+    .tap((el: Node) => {
+      Object.entries(<Listeners>listeners).forEach(([listner, cb]) => {
+        el.addEventListener(listner, cb );
       });
     })
     .value();
@@ -54,7 +55,7 @@ export const a = (props: object) => element("a", props);
 export const img = (props: object) => element("img", props);
 export const span = (props: object) => element("span", props);
 
-export const card = (user: object, i:number, data:object[]) =>
+export const card = (user: Character, i:number, data:object[]) =>
   div({
     classNames: ["mySlides", "fade", !i ? "active" : "hide"],
     children: [

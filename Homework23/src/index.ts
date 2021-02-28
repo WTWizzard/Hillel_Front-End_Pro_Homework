@@ -1,10 +1,11 @@
 import { div, a, img, span, card } from "./utils";
+import {Character} from './interfaces';
 
 const url = "https://rickandmortyapi.com/api/character";
 
 const getUsers = (url: string) => fetch(url);
 
-const app: HTMLDivElement = document.getElementById("app");
+const app: HTMLElement = document.getElementById("app")!;
 
 const getJsonFromResponse = (response: Body) => response.json();
 
@@ -12,7 +13,7 @@ const data = getUsers(url).then(getJsonFromResponse);
 
 data.then((gottenData) => {
   let currentSlide = 0;
-  let characters = gottenData.results;
+  const characters = gottenData.results;
   let cards:HTMLElement[], dots: HTMLElement[];
 
   const setActualSlide = (index: number) => {
@@ -40,13 +41,13 @@ data.then((gottenData) => {
           click: () =>
             setActualSlide(
               currentSlide === characters.length - 1
-                ? currentSlide + 1
+                ? currentSlide
                 : currentSlide + 1
             ),
         },
         children: ["❯"],
       }),
-      ...(cards = characters.map((user: object, i:number) => card(user, i, characters))),
+      ...(cards = characters.map((user: Character, i:number) => card(user, i, characters))),
     ],
   });
 
